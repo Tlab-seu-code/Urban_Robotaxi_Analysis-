@@ -38,12 +38,6 @@ final_code/
 │   └── [Helpers]                         # dist.py, traj.py, etc. (Shared utilities)
 │
 ├── 4-simulation/                         # SUMO Traffic Simulation
-│   ├── dynamic/                          # Dynamic Dispatching Simulation
-│   │   ├── run.py                        # Basic simulation runner
-│   │   ├── sim.py                        # Main TraCI loop for dispatch algorithms
-│   │   ├── add.py                        # Inject passengers/orders into running sim
-│   │   ├── adj.py                        # Time synchronization analysis (Sim vs Real)
-│   │   └── computation_time.py           # Performance/Overhead analysis
 │   └── static/                           # Historical Replay & Emission Analysis
 │       ├── rou_gen.py                    # Generate SUMO .rou.xml from CSV trajectories
 │       ├── sim.py                        # Run simulation for emission data collection
