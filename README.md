@@ -44,10 +44,10 @@ final_code/
 │   └── basic.vtype.xml                   # Vehicle physical definitions (EV/ICE parameters)
 │
 ├── 5-cci_and_sne/                        # Calculate the CCI and SNE
-│   ├── cci_distribution.py               # Demand-Supply correlation & "Non-run" ratio analysis
-│   ├── cci_percentile.py                 # Demand-Supply correlation & "Non-run" ratio analysis
-│   ├── compute_grid_sne_wuhan.py         # Demand-Supply correlation & "Non-run" ratio analysis
-│   └── ntl.py                            # POI data categorization
+│   ├── cci_distribution.py               # calculate the distribution of CCI
+│   ├── cci_percentile.py                 # calculate the percentile of CCI
+│   ├── compute_grid_sne_wuhan.py         # calculate the SNE of Wuhan city
+│   └── ntl.py                            # calculate the center of the city and the CCI
 │
 ├── 6-figure/                             # Visualization (Nature-style Figures)
 │    ├── fig1a.py                         # Spatio-temporal distribution plots
