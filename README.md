@@ -72,7 +72,7 @@ final_code/
 └──7-sample data and code/                # Samples
      ├── NYC-sample/                      # Sample of NYC
      ├── Porto-sample/                    # Sample of Porto
-     ├── Wuhan-sample/                    # Wuhan-sample
+     ├── Wuhan-sample/                    # Sample of Wuhan
      └── carpooling_one_day_sample_code/  # carpool sample of one day
 ```
 
