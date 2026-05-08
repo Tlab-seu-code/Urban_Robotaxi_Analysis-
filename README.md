@@ -74,8 +74,7 @@ final_code/
     ├── fig4c.py                # Weekly fleet dynamics time series
     ├── fig4d.py                # Lorenz curves
     ├── fig4e.py                # Dual-axis hourly comparison chart
-    ├── figure4a_old.py         # AV vs HV order comparison (POP baseline vs CTX baseline)
-    └── figure5b_old.py         # Robotaxi order analysis (CTX model vs POP+SNE model)
+    └── figure4a_old.py         # AV vs HV order comparison (POP baseline vs CTX baseline)
 ```
 
 ## Prerequisites
