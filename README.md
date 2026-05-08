@@ -7,78 +7,73 @@ This repository contains a comprehensive framework for processing, analyzing, an
 ```text
 final_code/
 │
-├── 1-av_data_process/          # AV Data Cleaning & Feature Engineering
-│   ├── avg_speed.py            # Calculate average speeds and distributions
-│   ├── combine.py              # Merge raw data files (e.g., monthly Excel to CSV)
-│   ├── dist.py                 # District boundary handling (GeoJSON/Polygon)
-│   ├── pre_av_process.py       # Core AV data cleaning pipeline
-│   ├── pre_process.py          # Merge virtual/dispatch orders and handle cancellations
-│   ├── price.py                # Taxi fare calculation logic (Time/Distance based)
-│   ├── soc.py                  # State of Charge (Battery) interpolation
-│   ├── traj.py                 # Map matching: GPS points to SUMO edges
-│   └── zone_recog.py           # POI Zone classification (Residential/Commercial/etc.)
+├── 1-av_data_process/                    # AV Data Cleaning & Feature Engineering
+│   ├── avg_speed.py                      # Calculate average speeds and distributions
+│   ├── combine.py                        # Merge raw data files (e.g., monthly Excel to CSV)
+│   ├── dist.py                           # District boundary handling (GeoJSON/Polygon)
+│   ├── pre_av_process.py                 # Core AV data cleaning pipeline
+│   ├── pre_process.py                    # Merge virtual/dispatch orders and handle cancellations
+│   ├── price.py                          # Taxi fare calculation logic (Time/Distance based)
+│   ├── soc.py                            # State of Charge (Battery) interpolation
+│   ├── traj.py                           # Map matching: GPS points to SUMO edges
+│   └── zone_recog.py                     # POI Zone classification (Residential/Commercial/etc.)
 │
-├── 2-hdv_data_process/         # HDV Data Processing Pipeline
-│   ├── analy.py                # Convert raw tracking TXT data to CSV
-│   ├── cont.py                 # Merge output files and filter by duration
-│   ├── grid.py                 # Spatio-temporal grid mapping & non-run ratio calc
-│   ├── merged_order.py         # Merge orders with calculated travel lengths
-│   ├── pre_hdv_process.py      # Basic cleaning (outliers, bounds) for HDV
-│   ├── speed_gen.py            # Speed anomaly filtering
-│   ├── speed_rec.py            # Recompute speeds based on distance/time
-│   ├── speed_tag.py            # Tag data with Peak/Off-peak and Workday/Weekend
-│   ├── travel_len.py           # Calculate travel distances from trajectories
-│   └── V1_ticket.py            # Extract trip "orders" from continuous trajectory streams
+├── 2-hdv_data_process/                   # HDV Data Processing Pipeline
+│   ├── analy.py                          # Convert raw tracking TXT data to CSV
+│   ├── cont.py                           # Merge output files and filter by duration
+│   ├── grid.py                           # Spatio-temporal grid mapping & non-run ratio calc
+│   ├── merged_order.py                   # Merge orders with calculated travel lengths
+│   ├── pre_hdv_process.py                # Basic cleaning (outliers, bounds) for HDV
+│   ├── speed_gen.py                      # Speed anomaly filtering
+│   ├── speed_rec.py                      # Recompute speeds based on distance/time
+│   ├── speed_tag.py                      # Tag data with Peak/Off-peak and Workday/Weekend
+│   ├── travel_len.py                     # Calculate travel distances from trajectories
+│   └── V1_ticket.py                      # Extract trip "orders" from continuous trajectory streams
 │
-├── 3-old_fleet_optim/          # Fleet Size Optimization (Bipartite Matching)
-│   ├── bi_1.py                 # Construct Bipartite Graph from orders
-│   ├── bi_2.py                 # Solve Maximum Matching problem
-│   ├── bi_3.py                 # Reconstruct vehicle chains & determine fleet size
-│   ├── travel_time_calculator.py # Heuristic algorithm for road network speed estimation
-│   └── [Helpers]               # dist.py, traj.py, etc. (Shared utilities)
+├── 3-old_fleet_optim/                    # Fleet Size Optimization (Bipartite Matching)
+│   ├── bi_1.py                           # Construct Bipartite Graph from orders
+│   ├── bi_2.py                           # Solve Maximum Matching problem
+│   ├── bi_3.py                           # Reconstruct vehicle chains & determine fleet size
+│   ├── travel_time_calculator.py         # Heuristic algorithm for road network speed estimation
+│   └── [Helpers]                         # dist.py, traj.py, etc. (Shared utilities)
 │
-├── 4-simulation/               # SUMO Traffic Simulation
-│   ├── dynamic/                # Dynamic Dispatching Simulation
-│   │   ├── run.py              # Basic simulation runner
-│   │   ├── sim.py              # Main TraCI loop for dispatch algorithms
-│   │   ├── add.py              # Inject passengers/orders into running sim
-│   │   ├── adj.py              # Time synchronization analysis (Sim vs Real)
-│   │   └── computation_time.py # Performance/Overhead analysis
-│   └── static/                 # Historical Replay & Emission Analysis
-│       ├── rou_gen.py          # Generate SUMO .rou.xml from CSV trajectories
-│       ├── sim.py              # Run simulation for emission data collection
-│       ├── eqaco2.py           # Calculate CO2/Energy based on vehicle types
-│       └── basic.vtype.xml     # Vehicle physical definitions (EV/ICE parameters)
+├── 4-simulation/                         # SUMO Traffic Simulation
+│   └── static/                           # Historical Replay & Emission Analysis
+│       ├── rou_gen.py                    # Generate SUMO .rou.xml from CSV trajectories
+│       ├── sim.py                        # Run simulation for emission data collection
+│       ├── eqaco2.py                     # Calculate CO2/Energy based on vehicle types
+│       └── basic.vtype.xml               # Vehicle physical definitions (EV/ICE parameters)
 │
-├── 5-equal/                    # Statistical Comparison & Analysis
-│   ├── equal.py                # Demand-Supply correlation & "Non-run" ratio analysis
-│   └── poi.py                  # POI data categorization
+├── 5-equal/                              # Statistical Comparison & Analysis
+│   ├── equal.py                          # Demand-Supply correlation & "Non-run" ratio analysis
+│   └── poi.py                            # POI data categorization
 │
-├── 6-figure/                   # Visualization (Nature-style Figures)
-│    ├── fig1a-d 2d.py           # Spatio-temporal distribution plots
-│    ├── fig1c.py                # 4-panel Sankey diagram
-│    ├── fig1d_pie.py            # Pie chart showing feature importance distribution from SHAP values
-│    ├── fig1d_shap.py           # Beeswarm summary plot
-│    ├── fig1e-f2.py             # Emission heatmaps
-│    ├── fig1f-g.py              # Hourly CO2 distribution
-│    ├── fig1f.py                # Boxplot showing the hourly distribution of EV charging energy (kWh)
-│    ├── fig1g.py                # Hourly CO2 emissions from autonomous vehicles
-│    ├── fig2a-b.py              # Weekly order performance
-│    ├── fig2c.py                # Weather vs. Waiting time boxplots
-│    ├── fig3_old.py             # District-level analysis
-│    ├── fig3a.py                # POP and CTX model
-│    ├── fig3b.py                # CCI distribution
-│    ├── fig4_old.py             # Vehicle status heatmaps (Idle/Dispatch/Charge/Passenger)
-│    ├── fig4a.py                # Histogram comparing the OPCI distribution
-│    ├── fig4b.py                # Robotaxi orders across the CCI percentile bins
-│    ├── fig4c.py                # Weekly fleet dynamics time series
-│    ├── fig4d.py                # Lorenz curves
-│    └── fig4e.py                # Dual-axis hourly comparison chart
-└──7-sample data and code/
-     ├── NYC-sample/
-     ├── NYC-sample/
-     ├── NYC-sample/
-     
+├── 6-figure/                             # Visualization (Nature-style Figures)
+│    ├── fig1a-d 2d.py                    # Spatio-temporal distribution plots
+│    ├── fig1c.py                         # 4-panel Sankey diagram
+│    ├── fig1d_pie.py                     # Pie chart showing feature importance distribution from SHAP values
+│    ├── fig1d_shap.py                    # Beeswarm summary plot
+│    ├── fig1e-f2.py                      # Emission heatmaps
+│    ├── fig1f-g.py                       # Hourly CO2 distribution
+│    ├── fig1f.py                         # Boxplot showing the hourly distribution of EV charging energy (kWh)
+│    ├── fig1g.py                         # Hourly CO2 emissions from autonomous vehicles
+│    ├── fig2a-b.py                       # Weekly order performance
+│    ├── fig2c.py                         # Weather vs. Waiting time boxplots
+│    ├── fig3_old.py                      # District-level analysis
+│    ├── fig3a.py                         # POP and CTX model
+│    ├── fig3b.py                         # CCI distribution
+│    ├── fig4_old.py                      # Vehicle status heatmaps (Idle/Dispatch/Charge/Passenger)
+│    ├── fig4a.py                         # Histogram comparing the OPCI distribution
+│    ├── fig4b.py                         # Robotaxi orders across the CCI percentile bins
+│    ├── fig4c.py                         # Weekly fleet dynamics time series
+│    ├── fig4d.py                         # Lorenz curves
+│    └── fig4e.py                         # Dual-axis hourly comparison chart
+│
+└──7-sample data and code/                # Samples
+     ├── NYC-sample/                      # Sample of NYC
+     ├── Porto-sample/                    # Sample of Porto
+     ├── Wuhan-sample/                    # Sample of Wuhan
+     └── carpooling_one_day_sample_code/  # carpool sample of one day
 ```
 
 ## Prerequisites
