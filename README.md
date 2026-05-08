@@ -49,6 +49,7 @@ final_code/
 │
 ├── 6-figure/                             # Visualization (Nature-style Figures)
 │    ├── fig1a.py                         # Spatio-temporal distribution plots
+│    ├── fig2b.R                          # The orders distribution of four periods
 │    ├── fig1c.py                         # 4-panel Sankey diagram
 │    ├── fig1d_pie.py                     # Pie chart showing feature importance distribution from SHAP values
 │    ├── fig1d_shap.py                    # Beeswarm summary plot
