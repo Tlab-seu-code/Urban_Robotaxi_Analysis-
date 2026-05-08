@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes>
+
+<!-- =========================================================
+       NYC Yellow Cab (HV) vehicle types
+       Fuel HV: Toyota Camry (mid-size), Toyota RAV4 (large/SUV)
+       EV   HV: Tesla Model Y, Tesla Model 3
+       NOTE: Model Y / Model 3 are HV (electric taxis), NOT robotaxi.
+       ========================================================= -->
+
+  <!-- =========================
+       Fuel HV - Toyota Camry (mid-size)
+       ========================= -->
+  <vType id="hv_camry_fuel"
+        vClass="passenger"
+        guiShape="passenger"
+        length="4.920"
+        width="1.840"
+        height="1.445"
+        mass="1585"
+        minGap="2.5"
+        accel="2.3"
+        decel="4.5"
+        emergencyDecel="9.0"
+        sigma="0.5"
+        tau="1.0"
+        maxSpeed="33.33"
+        emissionClass="HBEFA3/PC_G_EU6">
+  </vType>
+
+  <!-- =========================
+       Fuel HV - Toyota RAV4 (large/SUV)
+       ========================= -->
+  <vType id="hv_rav4_fuel"
+        vClass="passenger"
+        guiShape="passenger"
+        length="4.600"
+        width="1.855"
+        height="1.685"
+        mass="1650"
+        minGap="2.5"
+        accel="2.1"
+        decel="4.5"
+        emergencyDecel="9.0"
+        sigma="0.5"
+        tau="1.0"
+        maxSpeed="33.33"
+        emissionClass="HBEFA3/PC_G_EU6">
+  </vType>
+
+  <!-- =========================
+       EV HV - Tesla Model 3 (electric)
+       Keep EV params style consistent with your robotaxi_ipace vType
+       ========================= -->
+  <vType id="hv_model3_ev"
+        vClass="passenger"
+        guiShape="passenger"
+        length="4.720"
+        width="1.850"
+        height="1.440"
+        mass="1847"
+        minGap="2.5"
+        accel="2.6"
+        decel="4.5"
+        emergencyDecel="9.0"
+        sigma="0.5"
+        tau="1.0"
+        maxSpeed="33.33"
+        emissionClass="Energy/unknown">
+
+      <!-- enable battery device -->
+      <param key="has.battery.device" value="true"/>
+
+      <!-- representative battery capacity (Wh) -->
+      <param key="device.battery.capacity" value="60000"/>
+
+      <!-- basic EV physics params (SUMO Electric model) -->
+      <param key="frontSurfaceArea" value="2.22"/>
+      <param key="airDragCoefficient" value="0.23"/>
+      <param key="rotatingMass" value="40"/>
+      <param key="radialDragCoefficient" value="0.1"/>
+      <param key="rollDragCoefficient" value="0.01"/>
+      <param key="constantPowerIntake" value="150"/>
+      <param key="propulsionEfficiency" value="0.92"/>
+      <param key="recuperationEfficiency" value="0.80"/>
+
+      <!-- optional: charging behavior caps -->
+      <param key="device.battery.maximumChargeRate" value="150000"/>
+
+      <!-- optional: start/stop to reduce idle consumption -->
+      <param key="shutOffStopDuration" value="300"/>
+      <param key="shutOffAutoDuration" value="20"/>
+  </vType>
+
+  <!-- =========================
+       EV HV - Tesla Model Y (electric)
+       ========================= -->
+  <vType id="hv_modely_ev"
+        vClass="passenger"
+        guiShape="passenger"
+        length="4.790"
+        width="1.920"
+        height="1.624"
+        mass="1992"
+        minGap="2.5"
+        accel="2.6"
+        decel="4.5"
+        emergencyDecel="9.0"
+        sigma="0.5"
+        tau="1.0"
+        maxSpeed="33.33"
+        emissionClass="Energy/unknown">
+
+      <!-- enable battery device -->
+      <param key="has.battery.device" value="true"/>
+
+      <!-- representative battery capacity (Wh) -->
+      <param key="device.battery.capacity" value="75000"/>
+
+      <!-- basic EV physics params (SUMO Electric model) -->
+      <param key="frontSurfaceArea" value="2.65"/>
+      <param key="airDragCoefficient" value="0.23"/>
+      <param key="rotatingMass" value="40"/>
+      <param key="radialDragCoefficient" value="0.1"/>
+      <param key="rollDragCoefficient" value="0.01"/>
+      <param key="constantPowerIntake" value="150"/>
+      <param key="propulsionEfficiency" value="0.92"/>
+      <param key="recuperationEfficiency" value="0.80"/>
+
+      <!-- optional: charging behavior caps -->
+      <param key="device.battery.maximumChargeRate" value="150000"/>
+
+      <!-- optional: start/stop to reduce idle consumption -->
+      <param key="shutOffStopDuration" value="300"/>
+      <param key="shutOffAutoDuration" value="20"/>
+  </vType>
+
+    <!-- Jaguar I-PACE Robotaxi -->
+    <vType id="robotaxi_ipace"
+           vClass="passenger"
+           guiShape="passenger"
+           length="4.682"
+           width="2.011"
+           height="1.566"
+           mass="2208"
+           minGap="2.5"
+           accel="2.6"
+           decel="4.5"
+           emergencyDecel="9.0"
+           sigma="0.5"
+           tau="1.0"
+           maxSpeed="33.33"
+           emissionClass="Energy">
+
+        <param key="device.battery.capacity" value="90000"/>
+
+        <!-- EV physical model -->
+        <param key="frontSurfaceArea" value="2.6"/>
+        <param key="airDragCoefficient" value="0.29"/>
+        <param key="rotatingMass" value="40"/>
+        <param key="radialDragCoefficient" value="0.1"/>
+        <param key="rollDragCoefficient" value="0.01"/>
+        <param key="constantPowerIntake" value="150"/>
+        <param key="propulsionEfficiency" value="0.92"/>
+        <param key="recuperationEfficiency" value="0.80"/>
+
+        <param key="device.battery.maximumChargeRate" value="150000"/>
+        <param key="shutOffStopDuration" value="300"/>
+        <param key="shutOffAutoDuration" value="20"/>
+
+    </vType>
+
+</routes>

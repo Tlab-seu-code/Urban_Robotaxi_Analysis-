@@ -1,0 +1,4 @@
+scenario,dw_max_wait_minutes,dw_max_distance_m,use_sumo_paths,total_original_orders,total_shared_pairs,overall_sharing_rate,total_cars,avg_daily_orders,avg_daily_cars,merged_pairs_2p,merged_pairs_3p,merged_passengers_total
+w3m_d300m_straight,3,300,False,6950,91,1.3093525179856114,245,6950.0,245.0,0,0,0
+w5m_d500m_straight,5,500,False,6950,371,5.338129496402877,242,6950.0,242.0,0,0,0
+w8m_d800m_straight,8,800,False,6950,732,10.532374100719425,237,6950.0,237.0,0,0,0

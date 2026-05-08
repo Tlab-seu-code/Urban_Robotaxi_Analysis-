@@ -1,0 +1,6 @@
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/robust.net.xml filter=lfs diff=lfs merge=lfs -text
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/osm.net.xml filter=lfs diff=lfs merge=lfs -text
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/osm_sim.net.xml filter=lfs diff=lfs merge=lfs -text
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/nyc_20241101_route_cache.csv filter=lfs diff=lfs merge=lfs -text
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/traj_20240708.csv filter=lfs diff=lfs merge=lfs -text
+sample[[:space:]]data[[:space:]]and[[:space:]]code/**/speed_filled_step1_sample_2024-11-12.csv filter=lfs diff=lfs merge=lfs -text

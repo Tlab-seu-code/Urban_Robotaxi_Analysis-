@@ -1,0 +1,47 @@
+[
+  {
+    "scenario": "w3m_d300m_straight",
+    "dw_max_wait_minutes": 3,
+    "dw_max_distance_m": 300,
+    "use_sumo_paths": false,
+    "total_original_orders": 6950,
+    "total_shared_pairs": 91,
+    "overall_sharing_rate": 1.3093525179856114,
+    "total_cars": 245,
+    "avg_daily_orders": 6950.0,
+    "avg_daily_cars": 245.0,
+    "merged_pairs_2p": 0,
+    "merged_pairs_3p": 0,
+    "merged_passengers_total": 0
+  },
+  {
+    "scenario": "w5m_d500m_straight",
+    "dw_max_wait_minutes": 5,
+    "dw_max_distance_m": 500,
+    "use_sumo_paths": false,
+    "total_original_orders": 6950,
+    "total_shared_pairs": 371,
+    "overall_sharing_rate": 5.338129496402877,
+    "total_cars": 242,
+    "avg_daily_orders": 6950.0,
+    "avg_daily_cars": 242.0,
+    "merged_pairs_2p": 0,
+    "merged_pairs_3p": 0,
+    "merged_passengers_total": 0
+  },
+  {
+    "scenario": "w8m_d800m_straight",
+    "dw_max_wait_minutes": 8,
+    "dw_max_distance_m": 800,
+    "use_sumo_paths": false,
+    "total_original_orders": 6950,
+    "total_shared_pairs": 732,
+    "overall_sharing_rate": 10.532374100719425,
+    "total_cars": 237,
+    "avg_daily_orders": 6950.0,
+    "avg_daily_cars": 237.0,
+    "merged_pairs_2p": 0,
+    "merged_pairs_3p": 0,
+    "merged_passengers_total": 0
+  }
+]
