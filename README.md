@@ -57,11 +57,10 @@ final_code/
 │    ├── fig1f.py                         # Boxplot showing the hourly distribution of EV charging energy (kWh)
 │    ├── fig1g.py                         # Hourly CO2 emissions from autonomous vehicles
 │    ├── fig2a-b.py                       # Weekly order performance
-│    ├── fig2c.py                         # Weather vs. Waiting time boxplots
-│    ├── fig3_old.py                      # District-level analysis
+│    ├── fig2c.py                         # top k index
+│    ├── fig2c_SA.py                      # Sensitive analysis of top k index
 │    ├── fig3a.py                         # POP and CTX model
 │    ├── fig3b.py                         # CCI distribution
-│    ├── fig4_old.py                      # Vehicle status heatmaps (Idle/Dispatch/Charge/Passenger)
 │    ├── fig4a.py                         # Histogram comparing the OPCI distribution
 │    ├── fig4b.py                         # Robotaxi orders across the CCI percentile bins
 │    ├── fig4c.py                         # Weekly fleet dynamics time series
