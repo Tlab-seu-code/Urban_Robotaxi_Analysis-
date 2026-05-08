@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Top-K overlap analysis and CCI quantile radar chart.
+Generate radar-only figures for K = 10% to 90%.
+
+Each output figure contains only the right-side radar chart.
+A total of 9 figures will be generated:
+Top-10%, Top-20%, ..., Top-90%
 
 Input files are assumed to be in the same folder as this script:
 1. v3-districts.csv
@@ -8,7 +12,7 @@ Input files are assumed to be in the same folder as this script:
 3. cci_grid_linear_grid.csv   (or .xlsx)
 
 Outputs will be saved to:
-./topk_cci_output/
+./sensitivity output/
 """
 
 import os
@@ -44,10 +48,8 @@ BOUNDARY_FILE = os.path.join(SCRIPT_DIR, "wuhan_boundary.geojson.json")
 
 CHUNK_SZ = 200_000
 
-OUTPUT_DIR = os.path.join(SCRIPT_DIR, "topk_cci_output")
+OUTPUT_DIR = os.path.join(SCRIPT_DIR, "sensitivity output")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-OUTPUT_FILE = os.path.join(OUTPUT_DIR, "combined_topk_cci_radar.png")
 
 
 # ---------------- Core parameters ----------------
@@ -183,32 +185,6 @@ def top_k_overlap(arr1, arr2, k_pct):
     return len(top1 & top2) / k
 
 
-def top_k_series(arr1, arr2, start_pct=0.0, k_max_pct=1.0, step_pct=0.05):
-    flat1 = arr1.ravel()
-    flat2 = arr2.ravel()
-
-    mask = (flat1 > 0) | (flat2 > 0)
-    idc = np.where(mask)[0]
-    total_grids = len(idc)
-
-    k_range = np.arange(start_pct, k_max_pct + step_pct, step_pct)
-    overlap_rate = []
-
-    for k_pct in k_range:
-        k = max(1, int(total_grids * k_pct)) if total_grids > 0 else 1
-
-        if total_grids > 0:
-            top1 = set(idc[np.argsort(flat1[mask])[::-1][:k]])
-            top2 = set(idc[np.argsort(flat2[mask])[::-1][:k]])
-        else:
-            top1 = set()
-            top2 = set()
-
-        overlap_rate.append(len(top1 & top2) / k if k > 0 else 0.0)
-
-    return k_range, np.array(overlap_rate)
-
-
 def load_cci_data(cci_file_path):
     """
     Supports both .csv and .xlsx files.
@@ -321,7 +297,7 @@ def build_compete(arr_av, arr_hv):
     return av_arr, hv_arr, gx_map, gy_map, nr, nc
 
 
-def calculate_region_top30(av_arr, hv_arr, grid_interval, gx_map, gy_map, nr, nc):
+def calculate_region_topk(av_arr, hv_arr, grid_interval, gx_map, gy_map, nr, nc, k_pct):
     interval_masks = [np.zeros((nr, nc), dtype=bool) for _ in range(5)]
 
     for (gx, gy), interval in grid_interval.items():
@@ -332,25 +308,25 @@ def calculate_region_top30(av_arr, hv_arr, grid_interval, gx_map, gy_map, nr, nc
             if 0 <= r < nr and 0 <= c < nc:
                 interval_masks[interval][r, c] = True
 
-    top30_ratios = []
+    topk_ratios = []
 
     for mask in interval_masks:
         av_region = av_arr[mask]
         hv_region = hv_arr[mask]
 
         if len(av_region) == 0 or len(hv_region) == 0:
-            top30_ratios.append(0.0)
+            topk_ratios.append(0.0)
             continue
 
         overlap = top_k_overlap(
             av_region.reshape(-1, 1),
             hv_region.reshape(-1, 1),
-            0.3
+            k_pct
         )
 
-        top30_ratios.append(overlap)
+        topk_ratios.append(overlap)
 
-    return top30_ratios
+    return topk_ratios
 
 
 def align_av_hv_dates(av_data, hv_data):
@@ -384,7 +360,7 @@ def align_av_hv_dates(av_data, hv_data):
     return av_data_aligned, hv_data_aligned
 
 
-def plot_combined_radar(ax, data_list, labels, periods, colors):
+def plot_radar_only(ax, data_list, labels, periods, colors, topk_percent):
     num_vars = len(periods)
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
 
@@ -421,7 +397,6 @@ def plot_combined_radar(ax, data_list, labels, periods, colors):
         theta, r = label.get_position()
         angle_deg = round(np.degrees(theta)) % 360
 
-        # Keep labels readable but avoid pushing them too far out
         if angle_deg == 0:
             new_r = r * 1.14
             label.set_ha("left")
@@ -431,11 +406,11 @@ def plot_combined_radar(ax, data_list, labels, periods, colors):
             label.set_ha("left")
             label.set_va("bottom")
         elif angle_deg == 144:
-            new_r = r * 1.30
+            new_r = r * 1.18
             label.set_ha("right")
             label.set_va("bottom")
         elif angle_deg == 216:
-            new_r = r * 1.30
+            new_r = r * 1.20
             label.set_ha("right")
             label.set_va("top")
         elif angle_deg == 288:
@@ -448,14 +423,25 @@ def plot_combined_radar(ax, data_list, labels, periods, colors):
         label.set_position((theta, new_r))
 
     ax.set_rlabel_position(112.5)
-    ax.set_yticks(np.arange(0, 51, 10))
-    ax.set_yticklabels([f"{x}%" for x in range(0, 51, 10)], fontsize=20)
+
+    # Dynamic radial scale:
+    # Top-10% to Top-50% keep the original 0-50% scale;
+    # Top-60% to Top-90% extend to the corresponding K value.
+    radial_max = max(50, int(topk_percent))
+
+    # Also avoid clipping if the actual overlap value is higher than the K-based scale.
+    data_max = max(max(row) for row in data_list) if data_list else 0
+    radial_max = max(radial_max, int(np.ceil(data_max / 10.0) * 10))
+    radial_max = min(radial_max, 100)
+
+    ax.set_ylim(0, radial_max)
+    ax.set_yticks(np.arange(0, radial_max + 1, 10))
+    ax.set_yticklabels([f"{x}%" for x in range(0, radial_max + 1, 10)], fontsize=20)
 
     for tick in ax.get_yticklabels():
         tick.set_zorder(100)
 
-    # Lower the title so it aligns better with the left-panel title
-    ax.set_title("Top-30%", fontsize=24, pad=6, y=1.05)
+    ax.set_title(f"Top-{topk_percent}%", fontsize=24, pad=6, y=1.05)
     ax.title.set_zorder(100)
 
     ax.spines["polar"].set_color("black")
@@ -470,7 +456,6 @@ def plot_combined_radar(ax, data_list, labels, periods, colors):
 
     handles, texts = zip(*legend_items)
 
-    # Keep the legend close to the radar chart and inside the saved canvas
     legend = ax.legend(
         handles,
         texts,
@@ -484,6 +469,126 @@ def plot_combined_radar(ax, data_list, labels, periods, colors):
     )
 
     legend.set_zorder(100)
+
+
+def compute_period_results_for_k(
+    av_grid, hv_grid, av_pgrid, hv_pgrid, grid_interval, k_pct
+):
+    results = {}
+
+    av_total_arr, hv_total_arr, base_gx_map, base_gy_map, base_nr, base_nc = build_compete(
+        av_grid,
+        hv_grid
+    )
+
+    results["All Periods"] = calculate_region_topk(
+        av_total_arr,
+        hv_total_arr,
+        grid_interval,
+        base_gx_map,
+        base_gy_map,
+        base_nr,
+        base_nc,
+        k_pct
+    )
+
+    for p in PERIODS[:4]:
+        av_p_arr, hv_p_arr, _, _, _, _ = build_compete(
+            av_pgrid[p],
+            hv_pgrid[p]
+        )
+
+        av_aligned = np.zeros((base_nr, base_nc), float)
+        hv_aligned = np.zeros((base_nr, base_nc), float)
+
+        curr_grids = set(av_pgrid[p].keys()).union(set(hv_pgrid[p].keys()))
+        curr_gx_vals = sorted({g[0] for g in curr_grids})
+        curr_gy_vals = sorted({g[1] for g in curr_grids})
+
+        curr_gx_map = {v: i for i, v in enumerate(curr_gx_vals)}
+        curr_gy_map = {v: i for i, v in enumerate(curr_gy_vals)}
+
+        for g in curr_grids:
+            if g[0] in base_gx_map and g[1] in base_gy_map:
+                target_r = base_gy_map[g[1]]
+                target_c = base_gx_map[g[0]]
+
+                if g[0] in curr_gx_map and g[1] in curr_gy_map:
+                    src_r = curr_gy_map[g[1]]
+                    src_c = curr_gx_map[g[0]]
+
+                    av_aligned[target_r, target_c] = av_p_arr[src_r, src_c]
+                    hv_aligned[target_r, target_c] = hv_p_arr[src_r, src_c]
+
+        results[p] = calculate_region_topk(
+            av_aligned,
+            hv_aligned,
+            grid_interval,
+            base_gx_map,
+            base_gy_map,
+            base_nr,
+            base_nc,
+            k_pct
+        )
+
+    return results
+
+
+def save_single_radar_figure(results, topk_percent):
+    fig = plt.figure(figsize=(12.5, 8.5))
+    ax = fig.add_subplot(111, polar=True)
+
+    radar_data = []
+
+    for i in range(5):
+        row = [results[p][i] * 100 for p in PERIODS]
+        radar_data.append(row)
+
+    ordered_radar_data = [radar_data[i] for i in RADAR_ORDER]
+
+    plot_radar_only(
+        ax,
+        ordered_radar_data,
+        RADAR_LABELS,
+        PERIODS,
+        RADAR_COLORS,
+        topk_percent
+    )
+
+    plt.subplots_adjust(
+        left=0.18,
+        right=0.74,
+        top=0.88,
+        bottom=0.20
+    )
+
+    # Slight right shift, aligned with your finalized style
+    ax_pos = ax.get_position()
+    ax.set_position([
+        ax_pos.x0 + 0.01,
+        ax_pos.y0,
+        ax_pos.width,
+        ax_pos.height
+    ])
+
+    fig.text(
+        0.5,
+        0.085,
+        f"Top-K Overlap by Time Period and CCI Percentile (K = {topk_percent}%)",
+        ha="center",
+        va="center",
+        fontsize=28
+    )
+
+    output_file = os.path.join(
+        OUTPUT_DIR,
+        f"combined_topk_cci_radar_top{topk_percent}.png"
+    )
+
+    plt.savefig(output_file, dpi=300, bbox_inches="tight", pad_inches=0.25)
+    plt.close(fig)
+
+    print(f"Saved: {output_file}")
 
 
 # ---------------- Main workflow ----------------
@@ -628,231 +733,24 @@ def main():
 
     print(f"CCI quantiles: {[f'{q:.3f}' for q in cci_quantile_values]}")
 
-    # 7. Calculate Top-30% overlap by period and CCI interval
-    print("7. Calculating Top-30% overlap by period and CCI interval...")
+    # 7. Generate 9 radar-only figures
+    print("7. Generating radar-only figures for Top-10% to Top-90%...")
 
-    results = {}
+    for topk_percent in range(10, 100, 10):
+        k_pct = topk_percent / 100.0
+        print(f"Processing Top-{topk_percent}% ...")
 
-    av_total_arr, hv_total_arr, base_gx_map, base_gy_map, base_nr, base_nc = build_compete(
-        av_grid,
-        hv_grid
-    )
-
-    results["All Periods"] = calculate_region_top30(
-        av_total_arr,
-        hv_total_arr,
-        grid_interval,
-        base_gx_map,
-        base_gy_map,
-        base_nr,
-        base_nc
-    )
-
-    for p in PERIODS[:4]:
-        av_p_arr, hv_p_arr, _, _, _, _ = build_compete(
-            av_pgrid[p],
-            hv_pgrid[p]
-        )
-
-        av_aligned = np.zeros((base_nr, base_nc), float)
-        hv_aligned = np.zeros((base_nr, base_nc), float)
-
-        curr_grids = set(av_pgrid[p].keys()).union(set(hv_pgrid[p].keys()))
-        curr_gx_vals = sorted({g[0] for g in curr_grids})
-        curr_gy_vals = sorted({g[1] for g in curr_grids})
-
-        curr_gx_map = {v: i for i, v in enumerate(curr_gx_vals)}
-        curr_gy_map = {v: i for i, v in enumerate(curr_gy_vals)}
-
-        for g in curr_grids:
-            if g[0] in base_gx_map and g[1] in base_gy_map:
-                target_r = base_gy_map[g[1]]
-                target_c = base_gx_map[g[0]]
-
-                if g[0] in curr_gx_map and g[1] in curr_gy_map:
-                    src_r = curr_gy_map[g[1]]
-                    src_c = curr_gx_map[g[0]]
-
-                    av_aligned[target_r, target_c] = av_p_arr[src_r, src_c]
-                    hv_aligned[target_r, target_c] = hv_p_arr[src_r, src_c]
-
-        results[p] = calculate_region_top30(
-            av_aligned,
-            hv_aligned,
+        results = compute_period_results_for_k(
+            av_grid,
+            hv_grid,
+            av_pgrid,
+            hv_pgrid,
             grid_interval,
-            base_gx_map,
-            base_gy_map,
-            base_nr,
-            base_nc
+            k_pct
         )
 
-    # 8. Relief values
-    print("8. Calculating relief values...")
+        save_single_radar_figure(results, topk_percent)
 
-    peak_relief_values = []
-
-    for i in range(len(CCI_LABELS)):
-        peak_sum = (
-            results["Peak hour (Morning)"][i] +
-            results["Peak hour (Evening)"][i]
-        )
-
-        off_peak_sum = (
-            results["Day"][i] +
-            results["Night"][i]
-        )
-
-        if off_peak_sum == 0:
-            relief_value = 0.0
-        else:
-            relief_value = peak_sum / off_peak_sum
-
-        peak_relief_values.append(relief_value)
-        print(f"{CCI_LABELS[i]} relief value: {relief_value:.3f}")
-
-    # 9. Top-K sensitivity analysis
-    print("9. Calculating Top-K overlap sensitivity...")
-
-    sensitivity_data = {}
-
-    k_pct_vals, overlap_total = top_k_series(av_total_arr, hv_total_arr)
-    sensitivity_data["All Periods"] = (k_pct_vals, overlap_total)
-
-    for p in period_order:
-        av_p_arr, hv_p_arr, _, _, _, _ = build_compete(
-            av_pgrid[p],
-            hv_pgrid[p]
-        )
-
-        av_aligned = np.zeros((base_nr, base_nc), float)
-        hv_aligned = np.zeros((base_nr, base_nc), float)
-
-        curr_grids = set(av_pgrid[p].keys()).union(set(hv_pgrid[p].keys()))
-        curr_gx_vals = sorted({g[0] for g in curr_grids})
-        curr_gy_vals = sorted({g[1] for g in curr_grids})
-
-        curr_gx_map = {v: i for i, v in enumerate(curr_gx_vals)}
-        curr_gy_map = {v: i for i, v in enumerate(curr_gy_vals)}
-
-        for g in curr_grids:
-            if g[0] in base_gx_map and g[1] in base_gy_map:
-                target_r = base_gy_map[g[1]]
-                target_c = base_gx_map[g[0]]
-
-                if g[0] in curr_gx_map and g[1] in curr_gy_map:
-                    src_r = curr_gy_map[g[1]]
-                    src_c = curr_gx_map[g[0]]
-
-                    av_aligned[target_r, target_c] = av_p_arr[src_r, src_c]
-                    hv_aligned[target_r, target_c] = hv_p_arr[src_r, src_c]
-
-        k_pct_vals_p, overlap_p = top_k_series(av_aligned, hv_aligned)
-        sensitivity_data[p] = (k_pct_vals_p, overlap_p)
-
-    # 10. Plot combined figure
-    print("10. Plotting combined figure...")
-
-    fig = plt.figure(figsize=(16, 8))
-    ax1 = fig.add_subplot(1, 2, 1)
-    ax2 = fig.add_subplot(1, 2, 2, polar=True)
-    # Left panel
-    min_val, max_val = 0, 100
-
-    ax1.plot(
-        [min_val, max_val],
-        [min_val, max_val],
-        "k--",
-        linewidth=1.2,
-        alpha=0.7,
-        label="Baseline (y=x)"
-    )
-
-    for period_name in PERIODS:
-        if period_name in sensitivity_data:
-            k_pct, overlap = sensitivity_data[period_name]
-            config = sensitivity_config[period_name]
-
-            ax1.plot(
-                k_pct * 100,
-                overlap * 100,
-                color=config["color"],
-                marker=config["marker"],
-                markersize=10,
-                linewidth=1.5,
-                label=config["label"]
-            )
-
-    ax1.set_xlabel("Top-K% (%)", fontsize=20)
-    ax1.set_ylabel("Overlap Rate (%)", fontsize=20)
-    ax1.set_title("Top-K% Overlap Sensitivity", fontsize=24, pad=24)
-
-    ax1.grid(alpha=0.2, linestyle="-", linewidth=0.5)
-    ax1.set_xlim(min_val, max_val)
-    ax1.set_ylim(0, 100)
-    ax1.set_aspect("equal")
-
-    # 左图图例缩小一点
-    ax1.legend(
-        loc="lower right",
-        bbox_to_anchor=(1.0, 0.0),
-        bbox_transform=ax1.transAxes,
-        fontsize=15
-    )
-
-    ax1.tick_params(axis="both", which="major", labelsize=16)
-
-    # Right panel
-    radar_data = []
-
-    for i in range(5):
-        row = [results[p][i] * 100 for p in PERIODS]
-        radar_data.append(row)
-
-    ordered_radar_data = [radar_data[i] for i in RADAR_ORDER]
-
-    plot_combined_radar(
-        ax2,
-        ordered_radar_data,
-        RADAR_LABELS,
-        PERIODS,
-        RADAR_COLORS
-    )
-
-    # 整个图底部居中的总说明
-    plt.subplots_adjust(
-        left=0.06,
-        right=0.80,
-        top=0.90,
-        bottom=0.18,
-        wspace=0.32
-    )
-
-    # Shift the radar panel slightly to the right to avoid overlap with the left panel
-    ax2_pos = ax2.get_position()
-    ax2.set_position([
-        ax2_pos.x0 + 0.035,
-        ax2_pos.y0,
-        ax2_pos.width,
-        ax2_pos.height
-    ])
-
-    # Bottom title centred under the full figure
-    plots_center_x = (ax1.get_position().x0 + ax2.get_position().x1) / 2
-    fig.text(
-        0.5,
-        0.085,
-        "Top-K Overlap by Time Period and CCI Percentile (K = 30%)",
-        ha="center",
-        va="center",
-        fontsize=28
-    )
-
-    plt.savefig(
-        OUTPUT_FILE,
-        dpi=300
-    )
-
-    print(f"Combined figure saved to: {OUTPUT_FILE}")
     print("Program completed.")
 
 
