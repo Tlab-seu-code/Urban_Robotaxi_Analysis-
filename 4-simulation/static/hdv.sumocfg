@@ -1,0 +1,12 @@
+<configuration>
+    <input>
+        <net-file value="robust.net.xml"/>
+        <route-files value="hdv.rou.xml"/>
+        <additional-files value="basic.vtype.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <step-length value="1" />
+        <end value="90000"/>
+    </time>
+</configuration>
