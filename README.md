@@ -73,8 +73,7 @@ final_code/
     ├── fig4b.py                # Robotaxi orders across the CCI percentile bins
     ├── fig4c.py                # Weekly fleet dynamics time series
     ├── fig4d.py                # Lorenz curves
-    ├── fig4e.py                # Dual-axis hourly comparison chart
-    └── figure4a_old.py         # AV vs HV order comparison (POP baseline vs CTX baseline)
+    └── fig4e.py                # Dual-axis hourly comparison chart
 ```
 
 ## Prerequisites
