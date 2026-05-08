@@ -48,12 +48,11 @@ final_code/
 │   └── poi.py                            # POI data categorization
 │
 ├── 6-figure/                             # Visualization (Nature-style Figures)
-│    ├── fig1a-d 2d.py                    # Spatio-temporal distribution plots
+│    ├── fig1a.py                         # Spatio-temporal distribution plots
 │    ├── fig1c.py                         # 4-panel Sankey diagram
 │    ├── fig1d_pie.py                     # Pie chart showing feature importance distribution from SHAP values
 │    ├── fig1d_shap.py                    # Beeswarm summary plot
-│    ├── fig1e-f2.py                      # Emission heatmaps
-│    ├── fig1f-g.py                       # Hourly CO2 distribution
+│    ├── fig1e.py                         # Emission heatmaps
 │    ├── fig1f.py                         # Boxplot showing the hourly distribution of EV charging energy (kWh)
 │    ├── fig1g.py                         # Hourly CO2 emissions from autonomous vehicles
 │    ├── fig2a-b.py                       # Weekly order performance
