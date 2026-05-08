@@ -56,12 +56,24 @@ final_code/
 │
 └── 6-figure/                   # Visualization (Nature-style Figures)
     ├── fig1a-d 2d.py           # Spatio-temporal distribution plots
+    ├── fig1c.py                # 4-panel Sankey diagram
+    ├── fig1d_pie.py            # Pie chart showing feature importance distribution from SHAP values
+    ├── fig1d_shap.py           # Beeswarm summary plot
     ├── fig1e-f2.py             # Emission heatmaps
     ├── fig1f-g.py              # Hourly CO2 distribution
+    ├── fig1f.py                # Boxplot showing the hourly distribution of EV charging energy (kWh)
+    ├── fig1g.py                # Hourly CO2 emissions from autonomous vehicles
     ├── fig2a-b.py              # Weekly order performance
     ├── fig2c.py                # Weather vs. Waiting time boxplots
     ├── fig3.py                 # District-level analysis
+    ├── fig3a.py                # POP and CTX model
+    ├── fig3b.py                # CCI distribution
     ├── fig4.py                 # Vehicle status heatmaps (Idle/Dispatch/Charge/Passenger)
+    ├── fig4a.py                # Histogram comparing the OPCI distribution
+    ├── fig4b.py                # Robotaxi orders across the CCI percentile bins
+    ├── fig4c.py                # Weekly fleet dynamics time series
+    ├── fig4d.py                # Lorenz curves
+    ├── fig4e.py                # Dual-axis hourly comparison chart
     ├── figure4a.py             # AV vs HV order comparison (POP baseline vs CTX baseline)
     └── figure5b.py             # Robotaxi order analysis (CTX model vs POP+SNE model)
 ```
