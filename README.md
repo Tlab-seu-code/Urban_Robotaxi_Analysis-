@@ -38,14 +38,16 @@ final_code/
 │   └── [Helpers]                         # dist.py, traj.py, etc. (Shared utilities)
 │
 ├── 4-simulation/                         # SUMO Traffic Simulation
-│   ├── rou_gen.py                    # Generate SUMO .rou.xml from CSV trajectories
-│   ├── sim.py                        # Run simulation for emission data collection
-│   ├── eqaco2.py                     # Calculate CO2/Energy based on vehicle types
-│   └── basic.vtype.xml               # Vehicle physical definitions (EV/ICE parameters)
+│   ├── rou_gen.py                        # Generate SUMO .rou.xml from CSV trajectories
+│   ├── sim.py                            # Run simulation for emission data collection
+│   ├── eqaco2.py                         # Calculate CO2/Energy based on vehicle types
+│   └── basic.vtype.xml                   # Vehicle physical definitions (EV/ICE parameters)
 │
-├── 5-equal/                              # Statistical Comparison & Analysis
-│   ├── equal.py                          # Demand-Supply correlation & "Non-run" ratio analysis
-│   └── poi.py                            # POI data categorization
+├── 5-cci_and_sne/                        # Calculate the CCI and SNE
+│   ├── cci_distribution.py               # Demand-Supply correlation & "Non-run" ratio analysis
+│   ├── cci_percentile.py                 # Demand-Supply correlation & "Non-run" ratio analysis
+│   ├── compute_grid_sne_wuhan.py         # Demand-Supply correlation & "Non-run" ratio analysis
+│   └── ntl.py                            # POI data categorization
 │
 ├── 6-figure/                             # Visualization (Nature-style Figures)
 │    ├── fig1a.py                         # Spatio-temporal distribution plots
