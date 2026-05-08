@@ -69,7 +69,7 @@ final_code/
 │    ├── fig4d.py                         # Lorenz curves
 │    └── fig4e.py                         # Dual-axis hourly comparison chart
 │
-└──7-sample data and code/                # Samples
+└──7-sample_data_and_code/                # Samples
      ├── NYC-sample/                      # Sample of NYC
      ├── Porto-sample/                    # Sample of Porto
      ├── Wuhan-sample/                    # Sample of Wuhan
