@@ -161,6 +161,18 @@ cd ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
 python scripts/run_sample.py
 ```
 
+```bash
+.\Urban_Robotaxi_Analysis-\7-sample_data_and_code\Porto-sample\scripts\run_sample_pipeline.ps1
+```
+
+```bash
+.\Urban_Robotaxi_Analysis-\7-sample_data_and_code\Wuhan-sample\run.py
+```
+
+```bash
+.\Urban_Robotaxi_Analysis-\7-sample_data_and_code\Wuhan-sample\run.py
+```
+
 3. After the operation is completed, the corresponding results will be output in the folder, such as the results of the penetration experiment or the carpooling experiment.
 
 4. The case operation is likely to take several hours.
