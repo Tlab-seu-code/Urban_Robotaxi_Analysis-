@@ -81,7 +81,7 @@ final_code/
 - **Python 3.8+**
 - **SUMO (Simulation of Urban MObility) 1.20.0**: Must be installed and added to system PATH.
 
-### Python Libraries and versions the software has been tested on
+### Python Libraries and Versions the Software has been Tested on
 
 Install dependencies using pip:
 
