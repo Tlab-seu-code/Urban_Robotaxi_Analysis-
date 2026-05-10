@@ -165,6 +165,14 @@ python scripts/run_sample.py
 
 4. The case operation is likely to take several hours.
 
+5. An example to show that how to run the python files on your data:
+
+```bash
+python scripts/run_sample.py --penetrations 0,50,100 --end 3600 --max-orders 200
+```
+
+You need to set the parameters as described above after you have replaced your dataset.
+
 ## Key File Descriptions
 
 - **`district_boundaries.json`**: Contains the polygon coordinates for administrative districts (used by `dist.py`).
