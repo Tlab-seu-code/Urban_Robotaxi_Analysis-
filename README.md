@@ -149,7 +149,7 @@ python fig4b.py
 
 ### Phase 5: Sample Data and Code (`7-sample_data_and_code/`)
 
-1. Choose one of the samples, e.g., ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample:
+1. Choose one of the samples, e.g., `../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample`:
 
 ```bash
 cd ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
