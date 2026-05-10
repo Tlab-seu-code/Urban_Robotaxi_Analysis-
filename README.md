@@ -155,7 +155,7 @@ python fig4b.py
 cd ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
 ```
    
-2. Run the python file:
+2. Run the python file of all the samples:
 
 ```bash
 python scripts/run_sample.py
