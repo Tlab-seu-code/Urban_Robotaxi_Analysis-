@@ -149,7 +149,17 @@ python fig4b.py
 
 ### Phase 5: Sample data and code
 
-1. Choose one of the samples, e.g., ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
+1. Choose one of the samples, e.g., ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample:
+
+```bash
+cd ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
+```
+   
+2. Run the python file:
+
+```bash
+python scripts/run_sample.py
+```
 
 ## Key File Descriptions
 
