@@ -147,6 +147,10 @@ python fig4b.py
 
 - Note: These scripts contain specific styling configurations (fonts, sizes) to match academic journal standards (e.g., Nature style).
 
+### Phase 5: Sample data and code
+
+1. Choose one of the samples, e.g., ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
+
 ## Key File Descriptions
 
 - **`district_boundaries.json`**: Contains the polygon coordinates for administrative districts (used by `dist.py`).
