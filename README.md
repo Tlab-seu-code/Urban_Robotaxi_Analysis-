@@ -91,6 +91,10 @@ pip install pandas==2.0.3 numpy==1.23.5 matplotlib==3.8.4 seaborn==0.13.2 networ
 
 ## Workflow Guide
 
+### Phase 0: Installation
+
+
+
 ### Phase 1: Data Processing
 
 1. HDV Processing (`2-hdv_data_process/`)
