@@ -28,7 +28,7 @@ final_code/
 │   ├── travel_len.py                     # Calculate travel distances from trajectories
 │   └── V1_ticket.py                      # Extract trip "orders" from continuous trajectory streams
 │
-├── 3-fleet_optim/                    # Fleet Size Optimization (Bipartite Matching)
+├── 3-fleet_optim/                        # Fleet Size Optimization (Bipartite Matching)
 │   ├── bi_1.py                           # Construct Bipartite Graph from orders
 │   ├── bi_2.py                           # Solve Maximum Matching problem
 │   ├── bi_3.py                           # Reconstruct vehicle chains & determine fleet size
@@ -147,7 +147,7 @@ python fig4b.py
 
 - Note: These scripts contain specific styling configurations (fonts, sizes) to match academic journal standards (e.g., Nature style).
 
-### Phase 5: Sample data and code
+### Phase 5: Sample Data and Code (`7-sample_data_and_code`)
 
 1. Choose one of the samples, e.g., ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample:
 
@@ -160,6 +160,10 @@ cd ../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample
 ```bash
 python scripts/run_sample.py
 ```
+
+3. After the operation is completed, the corresponding results will be output in the folder, such as the results of the penetration experiment or the carpooling experiment.
+
+4. The case operation is likely to take several hours.
 
 ## Key File Descriptions
 
