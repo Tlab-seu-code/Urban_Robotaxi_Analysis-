@@ -86,7 +86,7 @@ final_code/
 Install dependencies using pip:
 
 ```bash
-pip install pandas numpy matplotlib seaborn networkx shapely scipy sumolib traci lxml plotly adjustText pypinyin
+pip install pandas==2.0.3 numpy==1.23.5 matplotlib==3.8.4 seaborn==0.13.2 networkx==2.8.4 shapely==2.0.7 scipy==1.13.1 lxml==4.9.1 plotly==5.9.0 adjustText==1.3.0 pypinyin==0.55.0 sumolib traci
 ```
 
 ## Workflow Guide
