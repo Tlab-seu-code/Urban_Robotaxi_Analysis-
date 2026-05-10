@@ -138,7 +138,13 @@ pip install pandas==2.0.3 numpy==1.23.5 matplotlib==3.8.4 seaborn==0.13.2 networ
 
 ### Phase 4: Visualization (`6-figure/`)
 
-- Execute specific scripts (e.g., `fig4.py`, `fig1e-f2.py`) to generate SVG/PDF figures.
+- Execute specific scripts (e.g., `fig4b.py`) to generate SVG/PDF figures:
+
+```bash
+cd ..\Urban_Robotaxi_Analysis-/6-figure
+python fig4b.py
+```
+
 - Note: These scripts contain specific styling configurations (fonts, sizes) to match academic journal standards (e.g., Nature style).
 
 ## Key File Descriptions
