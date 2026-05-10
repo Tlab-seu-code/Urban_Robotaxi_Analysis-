@@ -9,11 +9,9 @@ final_code/
 │
 ├── 1-av_data_process/                    # AV Data Cleaning & Feature Engineering
 │   ├── avg_speed.py                      # Calculate average speeds and distributions
-│   ├── combine.py                        # Merge raw data files (e.g., monthly Excel to CSV)
 │   ├── dist.py                           # District boundary handling (GeoJSON/Polygon)
 │   ├── pre_av_process.py                 # Core AV data cleaning pipeline
 │   ├── pre_process.py                    # Merge virtual/dispatch orders and handle cancellations
-│   ├── price.py                          # Taxi fare calculation logic (Time/Distance based)
 │   ├── soc.py                            # State of Charge (Battery) interpolation
 │   ├── traj.py                           # Map matching: GPS points to SUMO edges
 │   └── zone_recog.py                     # POI Zone classification (Residential/Commercial/etc.)
