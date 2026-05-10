@@ -93,7 +93,16 @@ pip install pandas==2.0.3 numpy==1.23.5 matplotlib==3.8.4 seaborn==0.13.2 networ
 
 ### Phase 0: Installation
 
+1. Clone the repository to your local machine:
 
+   ```bash
+   git clone https://github.com/Tlab-seu-code/Urban_Robotaxi_Analysis-.git
+   cd Urban_Robotaxi_Analysis-
+   ```
+   
+2. Create the virtual environment and install the dependencies.
+   
+3. Typical installation time: Approximately 5 minutes on a standard desktop computer.
 
 ### Phase 1: Data Processing
 
