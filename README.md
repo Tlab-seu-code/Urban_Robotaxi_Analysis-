@@ -166,11 +166,11 @@ python scripts/run_sample.py
 ```
 
 ```bash
-.\Urban_Robotaxi_Analysis-\7-sample_data_and_code\Wuhan-sample\run.py
+python ..Urban_Robotaxi_Analysis-/7-sample_data_and_code/Wuhan-sample/run.py
 ```
 
 ```bash
-.\Urban_Robotaxi_Analysis-\7-sample_data_and_code\Wuhan-sample\run.py
+python ..Urban_Robotaxi_Analysis-/7-sample_data_and_code/carpooling_one_day_sample_code
 ```
 
 3. After the operation is completed, the corresponding results will be output in the folder, such as the results of the penetration experiment or the carpooling experiment.
