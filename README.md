@@ -14,7 +14,7 @@ final_code/
 │   ├── pre_process.py                    # Merge virtual/dispatch orders and handle cancellations
 │   ├── soc.py                            # State of Charge (Battery) interpolation
 │   ├── traj.py                           # Map matching: GPS points to SUMO edges
-│   └── zone_recog.py                     # POI Zone classification (Residential/Commercial/etc.)
+│   └── poi_map.py                        # POI Zone classification (Residential/Commercial/etc.)
 │
 ├── 2-hdv_data_process/                   # HDV Data Processing Pipeline
 │   ├── analy.py                          # Convert raw tracking TXT data to CSV
@@ -29,11 +29,8 @@ final_code/
 │   └── V1_ticket.py                      # Extract trip "orders" from continuous trajectory streams
 │
 ├── 3-fleet_optim/                        # Fleet Size Optimization (Bipartite Matching)
-│   ├── bi_1.py                           # Construct Bipartite Graph from orders
-│   ├── bi_2.py                           # Solve Maximum Matching problem
-│   ├── bi_3.py                           # Reconstruct vehicle chains & determine fleet size
-│   ├── travel_time_calculator.py         # Heuristic algorithm for road network speed estimation
-│   └── [Helpers]                         # dist.py, traj.py, etc. (Shared utilities)
+│   ├── dynamic_waiting_ride_sharing.py   # Experiment for dynamic_waiting_ride_sharing
+│   └── improved_ride_sharing_sumo.py     # Improved integrated dynamic group buying function script
 │
 ├── 4-simulation/                         # SUMO Traffic Simulation
 │   ├── rou_gen.py                        # Generate SUMO .rou.xml from CSV trajectories
@@ -189,7 +186,6 @@ You need to set the parameters as described above after you have replaced your d
 
 - **`district_boundaries.json`**: Contains the polygon coordinates for administrative districts (used by `dist.py`).
 - **`robust.net.xml`**: The SUMO road network file (required for `sumolib` operations).
-- **`equal.py`**: A critical script for comparing the supply-demand balance between AVs and HDVs, often used to generate "Vehicle Shortage Ratio" metrics.
 
 ## Notes
 
