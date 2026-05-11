@@ -14,7 +14,8 @@ final_code/
 │   ├── pre_process.py                    # Merge virtual/dispatch orders and handle cancellations
 │   ├── soc.py                            # State of Charge (Battery) interpolation
 │   ├── traj.py                           # Map matching: GPS points to SUMO edges
-│   └── poi_map.py                        # POI Zone classification (Residential/Commercial/etc.)
+│   ├── od_classifier.py                  # Categorize target locations
+│   └── zone_recog.py                     # POI Zone classification (Residential/Commercial/etc.)
 │
 ├── 2-hdv_data_process/                   # HDV Data Processing Pipeline
 │   ├── analy.py                          # Convert raw tracking TXT data to CSV
