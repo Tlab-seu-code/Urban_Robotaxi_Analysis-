@@ -122,7 +122,7 @@ pip install pandas==2.0.3 numpy==1.23.5 matplotlib==3.8.4 seaborn==0.13.2 networ
    - Run `zone_recog.py` to classify trip start/end points.
    - Run `price.py` and `soc.py` for fare and battery analysis.
 
-### Phase 2: Fleet Optimization (`3-old_fleet_optim/`)
+### Phase 2: Fleet Optimization (`3-fleet_optim/`)
 
 1. **Graph Construction**: Run `bi_1.py` to create a directed acyclic graph (DAG) where nodes are trips and edges represent feasible connections.
 2. **Matching**: Run `bi_2.py` to perform maximum bipartite matching.
@@ -143,9 +143,7 @@ cd ..\Urban_Robotaxi_Analysis-/6-figure
 python fig4b.py
 ```
 
-- Note: These scripts contain specific styling configurations (fonts, sizes) to match academic journal standards (e.g., Nature style).
-
-### Phase 5: Sample Data and Code (`7-sample_data_and_code/`)
+### Sample Data and Code (`7-sample_data_and_code/`)
 
 1. Choose one of the samples, e.g., `../Urban_Robotaxi_Analysis-/7-sample_data_and_code/NYC-sample`:
 
