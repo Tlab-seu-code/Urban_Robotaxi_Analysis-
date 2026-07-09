@@ -61,6 +61,7 @@ final_code/
 │    ├── fig2d.py                         # Public transportation relationship box plot
 │    ├── fig3a.py                         # POP and CTX model
 │    ├── fig3b.py                         # CCI distribution
+│    ├── fig3c.py                         # Percentage chart
 │    ├── fig4a.py                         # Histogram comparing the OPCI distribution
 │    ├── fig4b.py                         # Robotaxi orders across the CCI percentile bins
 │    ├── fig4c.py                         # Weekly fleet dynamics time series
