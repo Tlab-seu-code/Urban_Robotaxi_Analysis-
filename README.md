@@ -73,6 +73,7 @@ final_code/
      ├── Porto-sample/                    # Sample of Porto
      ├── Wuhan-sample/                    # Sample of Wuhan
      └── carpooling_one_day_sample_code/  # carpool sample of one day
+we have a release (2024 POI & Nighttime Light Dataset v1.0): https://github.com/Tlab-seu-code/Urban_Robotaxi_Analysis-/releases/tag/v1.0
 ```
 
 ## Prerequisites
