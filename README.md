@@ -54,9 +54,11 @@ final_code/
 │    ├── fig1e.py                         # Emission heatmaps
 │    ├── fig1f.py                         # Boxplot showing the hourly distribution of EV charging energy (kWh)
 │    ├── fig1g.py                         # Hourly CO2 emissions from autonomous vehicles
-│    ├── fig2a-b.py                       # Weekly order performance
+│    ├── fig2a.py                         # Distributions of trip kinematics
+│    ├── fig2b.py                         # Order volume relationship chart
 │    ├── fig2c.py                         # top k index
 │    ├── fig2c_SA.py                      # Sensitive analysis of top k index
+│    ├── fig2d.py                         # Public transportation relationship box plot
 │    ├── fig3a.py                         # POP and CTX model
 │    ├── fig3b.py                         # CCI distribution
 │    ├── fig4a.py                         # Histogram comparing the OPCI distribution
